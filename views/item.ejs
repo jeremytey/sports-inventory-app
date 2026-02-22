@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= item.name %> — SportsGarage</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">Sports<span>Garage</span></a>
+      <nav>
+        <a href="/category/new" class="btn btn-outline">+ New Category</a>
+        <a href="/item/new" class="btn btn-primary">+ New Item</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-hero">
+      <a href="/category/<%= item.category_id %>" class="back-link">&larr; Back to Category</a>
+      <h1><%= item.name %></h1>
+      <p class="item-category">Category: <strong><%= item.category_name %></strong></p>
+    </div>
+
+    <div class="item-detail">
+      <div class="item-info">
+        <p class="item-desc"><%= item.description || 'No description provided.' %></p>
+        <div class="item-meta">
+          <div class="meta-block">
+            <span class="meta-label">Price</span>
+            <span class="meta-value">$<%= Number(item.price).toFixed(2) %></span>
+          </div>
+          <div class="meta-block">
+            <span class="meta-label">Stock</span>
+            <span class="meta-value <%= item.stock_quantity === 0 ? 'out' : '' %>">
+              <%= item.stock_quantity === 0 ? 'Out of stock' : item.stock_quantity + ' units' %>
+            </span>
+          </div>
+          <div class="meta-block">
+            <span class="meta-label">Added</span>
+            <span class="meta-value"><%= new Date(item.created_at).toLocaleDateString() %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item-actions">
+        <a href="/item/<%= item.id %>/edit" class="btn btn-outline">Edit Item</a>
+        <form action="/item/<%= item.id %>?_method=DELETE" method="POST">
+          <input type="password" name="password" placeholder="Admin password" required />
+          <button type="submit" class="btn btn-danger">Delete Item</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <%= new Date().getFullYear() %> SportsGarage. All rights reserved.</p>
+  </footer>
+</body>
+</html>

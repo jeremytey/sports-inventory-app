@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SportsGarage — Sports Equipment</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">Sports<span>Garage</span></a>
+      <nav>
+        <a href="/category/new" class="btn btn-outline">+ New Category</a>
+        <a href="/item/new" class="btn btn-primary">+ New Item</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-hero">
+      <h1>Equipment Categories</h1>
+      <p>Browse our full range of professional sports equipment.</p>
+    </section>
+
+    <% if (categories.length === 0) { %>
+      <div class="empty-state">
+        <p>No categories yet. <a href="/category/new">Create one.</a></p>
+      </div>
+    <% } else { %>
+      <div class="grid">
+        <% categories.forEach(category => { %>
+          <a href="/category/<%= category.id %>" class="card">
+            <div class="card-body">
+              <h2 class="card-title"><%= category.name %></h2>
+              <p class="card-desc"><%= category.description || 'No description provided.' %></p>
+            </div>
+            <div class="card-footer">
+              <span class="card-link">View Items &rarr;</span>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <%= new Date().getFullYear() %> SportsGarage. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= category.name %> — SportsGarage</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">Sports<span>Garage</span></a>
+      <nav>
+        <a href="/category/new" class="btn btn-outline">+ New Category</a>
+        <a href="/item/new" class="btn btn-primary">+ New Item</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-hero">
+      <a href="/" class="back-link">&larr; All Categories</a>
+      <h1><%= category.name %></h1>
+      <p><%= category.description || 'No description provided.' %></p>
+      <div class="action-row">
+        <a href="/category/<%= category.id %>/edit" class="btn btn-outline">Edit Category</a>
+        <form action="/category/<%= category.id %>?_method=DELETE" method="POST" class="inline-form">
+          <input type="password" name="password" placeholder="Admin password" required />
+          <button type="submit" class="btn btn-danger">Delete Category</button>
+        </form>
+      </div>
+    </div>
+
+    <% if (items.length === 0) { %>
+      <div class="empty-state">
+        <p>No items in this category yet. <a href="/item/new">Add one.</a></p>
+      </div>
+    <% } else { %>
+      <div class="grid">
+        <% items.forEach(item => { %>
+          <a href="/item/<%= item.id %>" class="card">
+            <div class="card-body">
+              <h2 class="card-title"><%= item.name %></h2>
+              <p class="card-desc"><%= item.description || 'No description.' %></p>
+            </div>
+            <div class="card-footer">
+              <span class="price">$<%= Number(item.price).toFixed(2) %></span>
+              <span class="stock <%= item.stock_quantity === 0 ? 'out' : '' %>">
+                <%= item.stock_quantity === 0 ? 'Out of stock' : item.stock_quantity + ' in stock' %>
+              </span>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <%= new Date().getFullYear() %> SportsGarage. All rights reserved.</p>
+  </footer>
+</body>
+</html>
