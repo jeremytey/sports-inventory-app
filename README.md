@@ -48,22 +48,22 @@ A full-stack inventory management application for a sports equipment store. Buil
 ## Database Schema
 
 ```sql
-CREATE TABLE categories (
-  id          INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  name        VARCHAR(255) UNIQUE NOT NULL,
-  description TEXT,
-  created_at  TIMESTAMP DEFAULT NOW()
+CREATE TABLE categories(
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(255) UNIQUE NOT NULL ,
+    description TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE items (
-  id             INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  name           VARCHAR(255) NOT NULL,
-  description    TEXT,
-  price          NUMERIC CHECK (price > 0),
-  stock_quantity INTEGER CHECK (stock_quantity >= 0),
-  category_id    INTEGER REFERENCES categories(id) ON DELETE CASCADE,
-  created_at     TIMESTAMP DEFAULT NOW()
-);
+CREATE TABLE items(
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price NUMERIC(10, 2) CHECK (price > 0),
+    stock_quantity INTEGER CHECK (stock_quantity >= 0),
+    category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+)
 ```
 
 ### Prerequisites
@@ -77,7 +77,7 @@ CREATE TABLE items (
 
 ```bash
 git clone https://github.com/yourusername/sports-inventory-app.git
-cd prokit-inventory
+cd sports-inventory-app
 ```
 
 2. Install dependencies
@@ -89,15 +89,15 @@ npm install
 3. Create a `.env` file in the root directory
 
 ```
-DATABASE_URL=postgresql://username:password@localhost:5432/sports-inventory
+DATABASE_URL=postgresql://username:password@localhost:5432/sportsgarage
 ADMIN_PASSWORD=your_secret_password
 ```
 
 4. Create the database and run the schema
 
 ```bash
-psql -U postgres -c "CREATE DATABASE prokit"
-psql -U postgres -d prokit -f db/schema.sql
+psql -U postgres -c "CREATE DATABASE sportsgarage"
+psql -U postgres -d sportsgarage -f db/schema.sql
 ```
 
 5. Seed the database

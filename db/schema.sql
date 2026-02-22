@@ -1,0 +1,16 @@
+CREATE TABLE categories(
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(255) UNIQUE NOT NULL ,
+    description TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE items(
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price NUMERIC(10, 2) CHECK (price > 0),
+    stock_quantity INTEGER CHECK (stock_quantity >= 0),
+    category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
