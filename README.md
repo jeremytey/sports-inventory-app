@@ -1,4 +1,4 @@
-# ProKit — Sports Equipment Inventory
+# Sports Equipment Inventory
 
 A full-stack inventory management application for a sports equipment store. Built with Node.js, Express, PostgreSQL, and EJS.
 
@@ -76,7 +76,7 @@ CREATE TABLE items (
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/prokit-inventory.git
+git clone https://github.com/yourusername/sports-inventory-app.git
 cd prokit-inventory
 ```
 
@@ -89,7 +89,7 @@ npm install
 3. Create a `.env` file in the root directory
 
 ```
-DATABASE_URL=postgresql://username:password@localhost:5432/prokit
+DATABASE_URL=postgresql://username:password@localhost:5432/sports-inventory
 ADMIN_PASSWORD=your_secret_password
 ```
 
